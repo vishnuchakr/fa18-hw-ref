@@ -59,7 +59,14 @@ Example 2:
 """
 
 def add_position(head, data, position):
-    pass
+    currentNode = head
+    if position == 0:
+        return Node(data, head)
+    while position > 1:
+        head = head.next_node
+        position -= 1
+    head.next_node = Node(data, head.next_node)
+    return currentNode
 
 """
 Given the head of a linked list and a position, remove the node at the given position.
@@ -80,7 +87,17 @@ Example:
 		a -> b -> d -> e
 """
 def remove_position(head, position):
-	pass
+    if position == 0:
+        return head.next_node
+        
+    else:
+        current = head
+        for i in range(position - 1):
+            current = current.next_node
+        current.next_node = current.next_node.next_node
+        return head
+        
+    
 
 
 """
@@ -104,7 +121,27 @@ Output:
 	None
 """
 def find_merge_point(head_a, head_b):
-	pass
+    A = head_a
+    B = head_b
+    count = 0
+    
+    while(A != B):
+        if count == 2:
+            return None
+        
+        if A.next_node == None:
+            A = head_b
+            count += 1
+        else:
+            A = A.next_node
+        
+        if B.next_node == None:
+            B = head_a
+            count += 1
+        else:
+            B = B.next_node
+    
+    return B.data
 
 """
 Given the head of a linked list, determines whether or not there
@@ -122,7 +159,7 @@ Example:
 		TRUE
 """
 def find_cycle(head):
-	pass
+    pass
 
 """
 Given the head of a linked list, reverse the linked list.
@@ -139,7 +176,21 @@ Example:
 		e -> d -> c -> b -> a
 """
 def reverse_list(head):
-	pass
+    current = head
+    previous = None
+    next = current.next_node
+    
+    while current:
+        current = Node(previous)
+        
+        previous = current
+        current = next
+        if next:
+            next = next.next_node
+    
+    head = previous
+    
+    return head.data
 
 
 """
