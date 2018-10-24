@@ -1,5 +1,4 @@
 import unittest
-import timeout_decorator
 
 from hw5 import *
 
@@ -8,7 +7,6 @@ from hw5 import *
 LOCAL_TIMEOUT = 10
 
 class tester_add_position(unittest.TestCase):
-	@timeout_decorator.timeout(LOCAL_TIMEOUT)
 	def test__given(self):
 		#add_position(head, data, position)
 		
@@ -28,7 +26,6 @@ class tester_add_position(unittest.TestCase):
 
 class tester_remove_position(unittest.TestCase):
 
-	@timeout_decorator.timeout(LOCAL_TIMEOUT)
 	def test__given(self):
 		a = Node(2, Node(3, Node(4)))
 		a = remove_position(a, 1)
@@ -36,11 +33,14 @@ class tester_remove_position(unittest.TestCase):
 
 		a = Node(2, Node(3, Node(4)))
 		a = remove_position(a, 0)
-		self.assertEqual(a.data, 3)	
+		self.assertEqual(a.data, 3)
+
+	def test_vacuous_given(self):
+		#if head is none
+		self.assertIsNone(None, 1)	
 
 
 class tester_merge(unittest.TestCase):
-	@timeout_decorator.timeout(LOCAL_TIMEOUT)
 	def test_given(self):
 		head_a = Node(2, Node(3))
 		head_b = Node(1, Node(4))
@@ -54,7 +54,6 @@ class tester_merge(unittest.TestCase):
 
 class tester_reverse_list(unittest.TestCase):
 
-	@timeout_decorator.timeout(LOCAL_TIMEOUT)
 	def test_given(self):
 		a = Node(2, Node(3, Node(4)))
 		reversed = reverse_list(a)
@@ -63,20 +62,26 @@ class tester_reverse_list(unittest.TestCase):
 		self.assertEqual(reversed.next_node.next_node.data, 2)
 
 
+		self.assertIsNone(reverse_list(None))
+	
+
+
+
 class tester_find_merge_point(unittest.TestCase):
 	
-	@timeout_decorator.timeout(LOCAL_TIMEOUT)
 	def test__given(self):
 		a = Node(2, Node(6, Node(-8)))
 		a1 = Node(3, a)
 		a2 = Node(5, a)
 		
 		self.assertEqual(find_merge_point(a1, a2), 2)
+
+		a3 = Node(6)
+		self.assertIsNone(find_merge_point(a3, a2))
 	
 
 class tester_find_cycle(unittest.TestCase):
 	
-	@timeout_decorator.timeout(LOCAL_TIMEOUT)
 	def test__given(self):
 		node_a = Node(1)
 		node_b = Node(2)
